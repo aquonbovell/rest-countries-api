@@ -1,0 +1,865 @@
+openapi: 3.0.0
+info:
+  title: Rest Countries Api
+  contact: {}
+  version: "1.0"
+servers:
+  - url: https://rest-countries-api-dhr2.onrender.com/api/countries
+    variables: {}
+paths:
+  /all:
+    get:
+      tags:
+        - Countries
+      summary: Get All Countries
+      operationId: GetAllCountries
+      parameters:
+        - name: page
+          in: query
+          description: ""
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            example: 2
+        - name: limit
+          in: query
+          description: ""
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            example: 12
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /:
+    get:
+      tags:
+        - Countries
+      summary: Get Countries
+      operationId: GetCountries
+      parameters:
+        - name: name
+          in: query
+          description: ""
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: bar
+        - name: fields
+          in: query
+          description: ""
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: name,capital,population,region
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+    post:
+      tags:
+        - Countries
+      summary: Post Country
+      operationId: PostCountry
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/PostCountryRequest"
+                - example:
+                    name: A
+                    topLevelDomain:
+                      - .af
+                    alpha2Code: AF
+                    alpha3Code: AFG
+                    callingCodes:
+                      - "93"
+                    capital: Kabul
+                    altSpellings:
+                      - AF
+                      - Afġānistān
+                    subregion: Southern Asia
+                    region: Asia
+                    population: 40218234
+                    latlng:
+                      - 33
+                      - 65
+                    demonym: Afghan
+                    area: 652230
+                    timezones:
+                      - UTC+04:30
+                    borders:
+                      - IRN
+                      - PAK
+                      - TKM
+                      - UZB
+                      - TJK
+                      - CHN
+                    nativeName: افغانستان
+                    numericCode: "004"
+                    flags:
+                      svg: https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_the_Taliban.svg
+                      png: https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Flag_of_the_Taliban.svg/320px-Flag_of_the_Taliban.svg.png
+                    currencies:
+                      - code: AFN
+                        name: Afghan afghani
+                        symbol: ؋
+                    languages:
+                      - iso639_1: ps
+                        iso639_2: pus
+                        name: Pashto
+                        nativeName: پښتو
+                      - iso639_1: uz
+                        iso639_2: uzb
+                        name: Uzbek
+                        nativeName: Oʻzbek
+                      - iso639_1: tk
+                        iso639_2: tuk
+                        name: Turkmen
+                        nativeName: Türkmen
+                    translations:
+                      br: Afghanistan
+                      pt: Afeganistão
+                      nl: Afghanistan
+                      hr: Afganistan
+                      fa: افغانستان
+                      de: Afghanistan
+                      es: Afganistán
+                      fr: Afghanistan
+                      ja: アフガニスタン
+                      it: Afghanistan
+                      hu: Afganisztán
+                    flag: https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_the_Taliban.svg
+                    regionalBlocs:
+                      - acronym: SAARC
+                        name: South Asian Association for Regional Cooperation
+                    cioc: AFG
+                    independent: true
+            example:
+              name: A
+              topLevelDomain:
+                - .af
+              alpha2Code: AF
+              alpha3Code: AFG
+              callingCodes:
+                - "93"
+              capital: Kabul
+              altSpellings:
+                - AF
+                - Afġānistān
+              subregion: Southern Asia
+              region: Asia
+              population: 40218234
+              latlng:
+                - 33
+                - 65
+              demonym: Afghan
+              area: 652230
+              timezones:
+                - UTC+04:30
+              borders:
+                - IRN
+                - PAK
+                - TKM
+                - UZB
+                - TJK
+                - CHN
+              nativeName: افغانستان
+              numericCode: "004"
+              flags:
+                svg: https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_the_Taliban.svg
+                png: https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Flag_of_the_Taliban.svg/320px-Flag_of_the_Taliban.svg.png
+              currencies:
+                - code: AFN
+                  name: Afghan afghani
+                  symbol: ؋
+              languages:
+                - iso639_1: ps
+                  iso639_2: pus
+                  name: Pashto
+                  nativeName: پښتو
+                - iso639_1: uz
+                  iso639_2: uzb
+                  name: Uzbek
+                  nativeName: Oʻzbek
+                - iso639_1: tk
+                  iso639_2: tuk
+                  name: Turkmen
+                  nativeName: Türkmen
+              translations:
+                br: Afghanistan
+                pt: Afeganistão
+                nl: Afghanistan
+                hr: Afganistan
+                fa: افغانستان
+                de: Afghanistan
+                es: Afganistán
+                fr: Afghanistan
+                ja: アフガニスタン
+                it: Afghanistan
+                hu: Afganisztán
+              flag: https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_the_Taliban.svg
+              regionalBlocs:
+                - acronym: SAARC
+                  name: South Asian Association for Regional Cooperation
+              cioc: AFG
+              independent: true
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /single/{name}:
+    parameters:
+      - in: path
+        name: name
+        schema:
+          type: string
+        required: true
+        description: The country name
+    get:
+      tags:
+        - Countries
+      summary: Get Country
+      operationId: GetCountry
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /{name}:
+    parameters:
+      - in: path
+        name: name
+        schema:
+          type: string
+        required: true
+        description: The country name
+    patch:
+      tags:
+        - Countries
+      summary: Patch Country
+      operationId: PatchCountry
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/PatchCountryRequest"
+                - example:
+                    population: 8
+                    independent: false
+            example:
+              population: 8
+              independent: false
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+    delete:
+      tags:
+        - Countries
+      summary: Delete Country
+      operationId: DeleteCountry
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+components:
+  schemas:
+    PostCountryRequest:
+      title: PostCountryRequest
+      required:
+        - name
+        - topLevelDomain
+        - alpha2Code
+        - alpha3Code
+        - callingCodes
+        - capital
+        - altSpellings
+        - subregion
+        - region
+        - population
+        - latlng
+        - demonym
+        - area
+        - timezones
+        - borders
+        - nativeName
+        - numericCode
+        - flags
+        - currencies
+        - languages
+        - translations
+        - flag
+        - regionalBlocs
+        - cioc
+        - independent
+      type: object
+      properties:
+        name:
+          type: string
+        topLevelDomain:
+          type: array
+          items:
+            type: string
+          description: ""
+        alpha2Code:
+          type: string
+        alpha3Code:
+          type: string
+        callingCodes:
+          type: array
+          items:
+            type: string
+          description: ""
+        capital:
+          type: string
+        altSpellings:
+          type: array
+          items:
+            type: string
+          description: ""
+        subregion:
+          type: string
+        region:
+          type: string
+        population:
+          type: integer
+          format: int32
+        latlng:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: ""
+        demonym:
+          type: string
+        area:
+          type: integer
+          format: int32
+        timezones:
+          type: array
+          items:
+            type: string
+          description: ""
+        borders:
+          type: array
+          items:
+            type: string
+          description: ""
+        nativeName:
+          type: string
+        numericCode:
+          type: string
+        flags:
+          allOf:
+            - $ref: "#/components/schemas/Flags"
+            - {}
+        currencies:
+          type: array
+          items:
+            $ref: "#/components/schemas/Currency"
+          description: ""
+        languages:
+          type: array
+          items:
+            $ref: "#/components/schemas/Language"
+          description: ""
+        translations:
+          allOf:
+            - $ref: "#/components/schemas/Translations"
+            - {}
+        flag:
+          type: string
+        regionalBlocs:
+          type: array
+          items:
+            $ref: "#/components/schemas/RegionalBloc"
+          description: ""
+        cioc:
+          type: string
+        independent:
+          type: boolean
+      example:
+        name: A
+        topLevelDomain:
+          - .af
+        alpha2Code: AF
+        alpha3Code: AFG
+        callingCodes:
+          - "93"
+        capital: Kabul
+        altSpellings:
+          - AF
+          - Afġānistān
+        subregion: Southern Asia
+        region: Asia
+        population: 40218234
+        latlng:
+          - 33
+          - 65
+        demonym: Afghan
+        area: 652230
+        timezones:
+          - UTC+04:30
+        borders:
+          - IRN
+          - PAK
+          - TKM
+          - UZB
+          - TJK
+          - CHN
+        nativeName: افغانستان
+        numericCode: "004"
+        flags:
+          svg: https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_the_Taliban.svg
+          png: https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Flag_of_the_Taliban.svg/320px-Flag_of_the_Taliban.svg.png
+        currencies:
+          - code: AFN
+            name: Afghan afghani
+            symbol: ؋
+        languages:
+          - iso639_1: ps
+            iso639_2: pus
+            name: Pashto
+            nativeName: پښتو
+          - iso639_1: uz
+            iso639_2: uzb
+            name: Uzbek
+            nativeName: Oʻzbek
+          - iso639_1: tk
+            iso639_2: tuk
+            name: Turkmen
+            nativeName: Türkmen
+        translations:
+          br: Afghanistan
+          pt: Afeganistão
+          nl: Afghanistan
+          hr: Afganistan
+          fa: افغانستان
+          de: Afghanistan
+          es: Afganistán
+          fr: Afghanistan
+          ja: アフガニスタン
+          it: Afghanistan
+          hu: Afganisztán
+        flag: https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_the_Taliban.svg
+        regionalBlocs:
+          - acronym: SAARC
+            name: South Asian Association for Regional Cooperation
+        cioc: AFG
+        independent: true
+    Flags:
+      title: Flags
+      required:
+        - svg
+        - png
+      type: object
+      properties:
+        svg:
+          type: string
+        png:
+          type: string
+      example:
+        svg: https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_the_Taliban.svg
+        png: https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Flag_of_the_Taliban.svg/320px-Flag_of_the_Taliban.svg.png
+    Currency:
+      title: Currency
+      required:
+        - code
+        - name
+        - symbol
+      type: object
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+        symbol:
+          type: string
+      example:
+        code: AFN
+        name: Afghan afghani
+        symbol: ؋
+    Language:
+      title: Language
+      required:
+        - iso639_1
+        - iso639_2
+        - name
+        - nativeName
+      type: object
+      properties:
+        iso639_1:
+          type: string
+        iso639_2:
+          type: string
+        name:
+          type: string
+        nativeName:
+          type: string
+      example:
+        iso639_1: ps
+        iso639_2: pus
+        name: Pashto
+        nativeName: پښتو
+    Translations:
+      title: Translations
+      required:
+        - br
+        - pt
+        - nl
+        - hr
+        - fa
+        - de
+        - es
+        - fr
+        - ja
+        - it
+        - hu
+      type: object
+      properties:
+        br:
+          type: string
+        pt:
+          type: string
+        nl:
+          type: string
+        hr:
+          type: string
+        fa:
+          type: string
+        de:
+          type: string
+        es:
+          type: string
+        fr:
+          type: string
+        ja:
+          type: string
+        it:
+          type: string
+        hu:
+          type: string
+      example:
+        br: Afghanistan
+        pt: Afeganistão
+        nl: Afghanistan
+        hr: Afganistan
+        fa: افغانستان
+        de: Afghanistan
+        es: Afganistán
+        fr: Afghanistan
+        ja: アフガニスタン
+        it: Afghanistan
+        hu: Afganisztán
+    RegionalBloc:
+      title: RegionalBloc
+      required:
+        - acronym
+        - name
+      type: object
+      properties:
+        acronym:
+          type: string
+        name:
+          type: string
+      example:
+        acronym: SAARC
+        name: South Asian Association for Regional Cooperation
+    PatchCountryRequest:
+      title: PatchCountryRequest
+      required:
+        - population
+        - independent
+      type: object
+      properties:
+        population:
+          type: integer
+          format: int32
+        independent:
+          type: boolean
+      example:
+        population: 8
+        independent: false
+    DeleteCountryRequest:
+      title: DeleteCountryRequest
+      required:
+        - name
+        - topLevelDomain
+        - alpha2Code
+        - alpha3Code
+        - callingCodes
+        - capital
+        - altSpellings
+        - subregion
+        - region
+        - population
+        - latlng
+        - demonym
+        - area
+        - timezones
+        - borders
+        - nativeName
+        - numericCode
+        - flags
+        - currencies
+        - languages
+        - translations
+        - flag
+        - regionalBlocs
+        - independent
+        - __v
+      type: object
+      properties:
+        name:
+          type: string
+        topLevelDomain:
+          type: array
+          items:
+            type: string
+          description: ""
+        alpha2Code:
+          type: string
+        alpha3Code:
+          type: string
+        callingCodes:
+          type: array
+          items:
+            type: string
+          description: ""
+        capital:
+          type: string
+        altSpellings:
+          type: array
+          items:
+            type: string
+          description: ""
+        subregion:
+          type: string
+        region:
+          type: string
+        population:
+          allOf:
+            - $ref: "#/components/schemas/Population"
+            - {}
+        latlng:
+          type: array
+          items:
+            $ref: "#/components/schemas/Latlng"
+          description: ""
+        demonym:
+          type: string
+        area:
+          allOf:
+            - $ref: "#/components/schemas/Area"
+            - {}
+        timezones:
+          type: array
+          items:
+            type: string
+          description: ""
+        borders:
+          type: array
+          items:
+            type: string
+          description: ""
+        nativeName:
+          type: string
+        numericCode:
+          type: string
+        flags:
+          allOf:
+            - $ref: "#/components/schemas/Flags"
+            - {}
+        currencies:
+          type: array
+          items:
+            $ref: "#/components/schemas/Currency"
+          description: ""
+        languages:
+          type: array
+          items:
+            $ref: "#/components/schemas/Language"
+          description: ""
+        translations:
+          allOf:
+            - $ref: "#/components/schemas/Translations"
+            - {}
+        flag:
+          type: string
+        regionalBlocs:
+          type: array
+          items:
+            $ref: "#/components/schemas/RegionalBloc1"
+          description: ""
+        independent:
+          type: boolean
+        __v:
+          allOf:
+            - $ref: "#/components/schemas/V"
+            - {}
+      example:
+        name: Åland Islands
+        topLevelDomain:
+          - .ax
+        alpha2Code: AX
+        alpha3Code: ALA
+        callingCodes:
+          - "358"
+        capital: Mariehamn
+        altSpellings:
+          - AX
+          - Aaland
+          - Aland
+          - Ahvenanmaa
+        subregion: Northern Europe
+        region: Europe
+        population:
+          $numberInt: "28875"
+        latlng:
+          - $numberDouble: "60.116667"
+          - $numberDouble: "19.9"
+        demonym: Ålandish
+        area:
+          $numberInt: "1580"
+        timezones:
+          - UTC+02:00
+        borders: []
+        nativeName: Åland
+        numericCode: "248"
+        flags:
+          svg: https://flagcdn.com/ax.svg
+          png: https://flagcdn.com/w320/ax.png
+        currencies:
+          - code: EUR
+            name: Euro
+            symbol: €
+        languages:
+          - iso639_1: sv
+            iso639_2: swe
+            name: Swedish
+            nativeName: svenska
+        translations:
+          br: Åland
+          pt: Ilhas de Aland
+          nl: Ålandeilanden
+          hr: Ålandski otoci
+          fa: جزایر الند
+          de: Åland
+          es: Alandia
+          fr: Åland
+          ja: オーランド諸島
+          it: Isole Aland
+          hu: Åland-szigetek
+        flag: https://flagcdn.com/ax.svg
+        regionalBlocs:
+          - acronym: EU
+            name: European Union
+            otherAcronyms: []
+            otherNames: []
+        independent: false
+        __v:
+          $numberInt: "0"
+    Population:
+      title: Population
+      required:
+        - $numberInt
+      type: object
+      properties:
+        $numberInt:
+          type: string
+      example:
+        $numberInt: "28875"
+    Latlng:
+      title: Latlng
+      required:
+        - $numberDouble
+      type: object
+      properties:
+        $numberDouble:
+          type: string
+      example:
+        $numberDouble: "60.116667"
+    Area:
+      title: Area
+      required:
+        - $numberInt
+      type: object
+      properties:
+        $numberInt:
+          type: string
+      example:
+        $numberInt: "1580"
+    RegionalBloc1:
+      title: RegionalBloc1
+      required:
+        - acronym
+        - name
+        - otherAcronyms
+        - otherNames
+      type: object
+      properties:
+        acronym:
+          type: string
+        name:
+          type: string
+        otherAcronyms:
+          type: array
+          items:
+            type: string
+          description: ""
+        otherNames:
+          type: array
+          items:
+            type: string
+          description: ""
+      example:
+        acronym: EU
+        name: European Union
+        otherAcronyms: []
+        otherNames: []
+    V:
+      title: V
+      required:
+        - $numberInt
+      type: object
+      properties:
+        $numberInt:
+          type: string
+      example:
+        $numberInt: "0"
+tags:
+  - name: Countries
+    description: ""

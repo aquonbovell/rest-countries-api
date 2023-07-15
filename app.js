@@ -7,6 +7,11 @@ const cors = require("cors");
 const xss = require("xss-clean");
 const rateLimiter = require("express-rate-limit");
 
+// Swagger
+const swaggerUI = require("swagger-ui-express");
+const YAML = require("yamljs");
+const sawggerDocument = YAML.load("./swagger.yaml");
+
 // Express
 const express = require("express");
 const app = express();
@@ -30,6 +35,8 @@ app.use(express.json());
 app.use(helmet());
 app.use(cors());
 app.use(xss());
+
+app.use("/api", swaggerUI.serve, swaggerUI.setup(sawggerDocument));
 
 app.use("/", router);
 
