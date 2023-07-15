@@ -10,9 +10,9 @@ const {
   getAllCountries,
 } = require("../controllers/tasks");
 
-router.route("/").post(createCountry).get(getAllCountries);
-router.route("/all").get(getAllCountriesStatic);
-router.route("/single/:name").get(getCountry);
-router.route("/:name").patch(updateCountry).delete(deleteCountry);
+router.route("/api/countries").post(createCountry).get(getAllCountries);
+router.route("/api/countries/all").get(getAllCountriesStatic);
+router.route("/api/countries/single/:name").get(getCountry);
+router.route("/api/countries/:name").patch(updateCountry).delete(deleteCountry);
 
 module.exports = router;
