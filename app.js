@@ -36,9 +36,9 @@ app.use(helmet());
 app.use(cors());
 app.use(xss());
 
-// app.use("/", (req, res, next) => {
-//   res.redirect("/api-docs");
-// });
+app.get("/", (req, res, next) => {
+  res.redirect(302, "/api-docs");
+});
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(sawggerDocument));
 
