@@ -158,7 +158,7 @@ paths:
       responses:
         201:
           description: Country created successfully
-  /api/countries/{country}:
+
     delete:
       summary: Delete a country
       parameters:
