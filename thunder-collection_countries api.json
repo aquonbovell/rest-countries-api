@@ -1,0 +1,89 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "countries api",
+    "dateExported": "2023-10-14T16:08:20.068Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "10d7e518-1744-41e5-b03d-5a0f011cb147",
+            "colId": "5801808f-c639-413a-9fdd-f10d01cc5878",
+            "containerId": "",
+            "name": "http://localhost:5000/api/countries/single/Afghanistan",
+            "url": "http://localhost:5000/api/countries/single/Afghanistan",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-10-14T15:50:14.470Z",
+            "modified": "2023-10-14T15:54:06.015Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "9c229fe9-98e2-412b-a639-d43beca9cff5",
+            "colId": "5801808f-c639-413a-9fdd-f10d01cc5878",
+            "containerId": "",
+            "name": "http://localhost:5000/api/countries/all",
+            "url": "http://localhost:5000/api/countries/all",
+            "method": "GET",
+            "sortNum": 15000,
+            "created": "2023-10-14T15:55:14.282Z",
+            "modified": "2023-10-14T15:55:48.999Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "75d87a40-ffb1-4f5c-b271-965fc0b53798",
+            "colId": "5801808f-c639-413a-9fdd-f10d01cc5878",
+            "containerId": "",
+            "name": "http://localhost:5000/api/countries/Afghanistan",
+            "url": "http://localhost:5000/api/countries/Afghanistan",
+            "method": "PATCH",
+            "sortNum": 20000,
+            "created": "2023-10-14T15:50:14.471Z",
+            "modified": "2023-10-14T15:58:55.668Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\"subregion\": \"Souther Asia\",\n    \"region\": \"Asiaa\",\n    \"population\": 9940218234}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "7cfc97b3-aa3b-4404-a075-2f619b37fbff",
+            "colId": "5801808f-c639-413a-9fdd-f10d01cc5878",
+            "containerId": "",
+            "name": "http://localhost:5000/api/countries",
+            "url": "http://localhost:5000/api/countries",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-10-14T15:50:14.472Z",
+            "modified": "2023-10-14T16:02:22.303Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "\r\n{   \"flags\": {\r\n      \"svg\": \"https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_the_Taliban.svg\",\r\n      \"png\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Flag_of_the_Taliban.svg/320px-Flag_of_the_Taliban.svg.png\"\r\n    },\r\n    \"translations\": {\r\n      \"br\": \"Afghanistan\",\r\n      \"pt\": \"Afeganistão\",\r\n      \"nl\": \"Afghanistan\",\r\n      \"hr\": \"Afganistan\",\r\n      \"fa\": \"افغانستان\",\r\n      \"de\": \"Afghanistan\",\r\n      \"es\": \"Afganistán\",\r\n      \"fr\": \"Afghanistan\",\r\n      \"ja\": \"アフガニスタン\",\r\n      \"it\": \"Afghanistan\",\r\n      \"hu\": \"Afganisztán\"\r\n    },\r\n    \"name\": \"Afn\",\r\n    \"topLevelDomain\": [\r\n      \".af\"\r\n    ],\r\n    \"alpha2Code\": \"AF\",\r\n    \"alpha3Code\": \"AFG\",\r\n    \"callingCodes\": [\r\n      \"93\"\r\n    ],\r\n    \"capital\": \"Kabul\",\r\n    \"altSpellings\": [\r\n      \"AF\",\r\n      \"Afġānistān\"\r\n    ],\r\n    \"subregion\": \"Southern Asia\",\r\n    \"region\": \"Asia\",\r\n    \"population\": 40218234,\r\n    \"latlng\": [\r\n      33,\r\n      65\r\n    ],\r\n    \"demonym\": \"Afghan\",\r\n    \"area\": 652230,\r\n    \"timezones\": [\r\n      \"UTC+04:30\"\r\n    ],\r\n    \"borders\": [\r\n      \"IRN\",\r\n      \"PAK\",\r\n      \"TKM\",\r\n      \"UZB\",\r\n      \"TJK\",\r\n      \"CHN\"\r\n    ],\r\n    \"nativeName\": \"افغانستان\",\r\n    \"numericCode\": \"004\",\r\n    \"currencies\": [\r\n      {\r\n        \"code\": \"AFN\",\r\n        \"name\": \"Afghan afghani\",\r\n        \"symbol\": \"؋\"\r\n      }\r\n    ],\r\n    \"languages\": [\r\n      {\r\n        \"iso639_1\": \"ps\",\r\n        \"iso639_2\": \"pus\",\r\n        \"name\": \"Pashto\",\r\n        \"nativeName\": \"پښتو\"\r\n      },\r\n      {\r\n        \"iso639_1\": \"uz\",\r\n        \"iso639_2\": \"uzb\",\r\n        \"name\": \"Uzbek\",\r\n        \"nativeName\": \"Oʻzbek\"\r\n      },\r\n      {\r\n        \"iso639_1\": \"tk\",\r\n        \"iso639_2\": \"tuk\",\r\n        \"name\": \"Turkmen\",\r\n        \"nativeName\": \"Türkmen\"\r\n      }\r\n    ],\r\n    \"flag\": \"https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_the_Taliban.svg\",\r\n    \"regionalBlocs\": [\r\n      {\r\n        \"acronym\": \"SAARC\",\r\n        \"name\": \"South Asian Association for Regional Cooperation\",\r\n        \"otherAcronyms\": [],\r\n        \"otherNames\": []\r\n      }\r\n    ],\r\n    \"cioc\": \"AFG\",\r\n    \"independent\": true,\r\n    \"__v\": 0\r\n  }",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "57872414-7b78-4c67-a0b1-95cd7d9c4e1d",
+            "colId": "5801808f-c639-413a-9fdd-f10d01cc5878",
+            "containerId": "",
+            "name": "http://localhost:5000/api/countries/Afn",
+            "url": "http://localhost:5000/api/countries/Afn",
+            "method": "DELETE",
+            "sortNum": 40000,
+            "created": "2023-10-14T15:50:14.473Z",
+            "modified": "2023-10-14T16:07:02.466Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ]
+}
