@@ -104,7 +104,7 @@ The API may return error responses with appropriate status codes and error messa
 
 ## Feedback and Support
 
-If you have any questions, feedback, or need support, please contact us at support@example.com.
+If you have any questions, feedback, or need support, please contact us at aquon_bovell@outlook.com.
 
 ## License
 
