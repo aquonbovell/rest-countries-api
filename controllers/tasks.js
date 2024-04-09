@@ -1,16 +1,22 @@
-const Country = require("../models/country");
 const { BadRequestError, NotFoundError } = require("../errors");
 const { StatusCodes } = require("http-status-codes");
 
+const { connectDB } = require("../db/connect");
+
 const getAllCountriesStatic = async (req, res) => {
-  const page = Number(req.query.page) || 1;
-  const limit = Number(req.query.limit) || 10;
-  const skip = (page - 1) * limit;
-  const countries = await Country.find({})
-    .skip(skip)
-    .limit(limit)
+  const client = await connectDB();
+  const countries = await client
+    .find({})
     .sort("name")
-    .select("name capital region population languages flag");
+    .project({
+      name: 1,
+      capital: 1,
+      region: 1,
+      population: 1,
+      languages: 1,
+      flag: 1,
+    })
+    .toArray();
   res
     .status(StatusCodes.OK)
     .json({ ok: true, countries, nbHits: countries.length });
@@ -27,9 +33,11 @@ const getAllCountries = async (req, res) => {
     queryObject.region = region;
   }
   if (name) {
-    queryObject.name = { $regex: name, $options: "i" };
+    // starts with and insensitive
+    queryObject["name.common"] = { $regex: `^${name}`, $options: "i" };
   }
   if (numericFilters) {
+    // operators: >, >=, =, <, <=
     const operatorMap = {
       ">": "$gt",
       ">=": "$gte",
@@ -37,53 +45,80 @@ const getAllCountries = async (req, res) => {
       "<": "$lt",
       "<=": "$lte",
     };
+
+    // replace operators with mongo operators
     const regEx = /\b(<|>|>=|=|<|<=)\b/g;
+
     let filters = numericFilters.replace(
       regEx,
       (match) => `-${operatorMap[match]}-`
     );
     const options = ["population", "area"];
+    // split the string into array
     filters = filters.split(",").forEach((item) => {
+      // split the item into field, operator and value
       const [field, operator, value] = item.split("-");
       if (options.includes(field)) {
         queryObject[field] = { [operator]: Number(value) };
       }
     });
   }
-  let result = Country.find(queryObject);
-  // sort
+
+  const sortFields = {};
   if (sort) {
-    const sortList = sort.split(",").join(" ");
-    result = result.sort(sortList);
+    const sortList = sort.split(",");
+    sortList.forEach((item) => {
+      const [field, order] = item.split(":");
+      sortFields[field] = order === "asc" ? 1 : -1;
+    });
   } else {
-    result = result.sort("name");
+    sortFields.name = 1;
   }
 
+  const selectFields = {};
   if (fields) {
-    const fieldsList = fields.split(",").join(" ");
-    result = result.select(fieldsList);
+    const fieldsList = fields.split(",");
+
+    fieldsList.forEach((field) => {
+      if (field === "name") {
+        selectFields["name.common"] = 1;
+      } else {
+        selectFields[field] = 1;
+      }
+    });
+  } else {
+    selectFields["name.common"] = 1;
+    selectFields.area = 1;
+    selectFields.population = 1;
+    selectFields.region = 1;
+    selectFields.languages = 1;
+    selectFields.flag = 1;
   }
+  console.log(queryObject, sortFields);
   const page = Number(req.query.page) || 1;
   const limit = Number(req.query.limit) || 10;
   const skip = (page - 1) * limit;
 
-  result = result.skip(skip).limit(limit);
+  const client = await connectDB();
+  let result = await client
+    .find(queryObject)
+    .project(selectFields)
+    .sort(sortFields)
+    .skip(skip)
+    .limit(limit)
+    .toArray();
 
-  const countries = await result;
-
-  res
-    .status(StatusCodes.OK)
-    .json({ ok: true, countries, nbHits: countries.length });
+  res.status(StatusCodes.OK).json({ ok: true, result, nbHits: result.length });
 };
 
 const createCountry = async (req, res) => {
   const { name: name } = req.body;
-  const country = await Country.findOne({ name: name });
+  const client = await connectDB();
+  const country = await client.findOne({ "name.common": name });
   if (country) {
     throw new BadRequestError(`Country exists with name: ${name}`);
   }
-  const newCountry = new Country(req.body);
-  await newCountry.save({ validateBeforeSave: true }); // Bypasses validation
+  const newCountry = await client.insertOne(req.body);
 
   res.status(StatusCodes.CREATED).json({ success: true, newCountry });
 };
@@ -93,10 +128,11 @@ const getCountry = async (req, res) => {
   const queryObject = {};
 
   if (name) {
-    queryObject.name = name;
+    queryObject["name.common"] = name;
   }
 
-  const country = await Country.findOne(queryObject);
+  const client = await connectDB();
+  const country = await client.findOne(queryObject);
 
   res.status(StatusCodes.OK).json({ country });
 };
@@ -106,10 +142,14 @@ const updateCountry = async (req, res) => {
   if (name === "") {
     throw new BadRequestError(`Name cannot be empty.`);
   }
-  const country = await Country.findOneAndUpdate({ name: name }, req.body, {
-    new: true,
-    runValidators: true,
-  });
+
+  const client = await connectDB();
+  const country = await client.findOneAndUpdate(
+    { "name.common": name },
+    { $set: req.body },
+    { returnDocument: "after" }
+  );
+
   if (!country) {
     throw new NotFoundError(`No country with name: ${name}`);
   }
@@ -121,10 +161,9 @@ const deleteCountry = async (req, res) => {
   if (name === "") {
     throw new BadRequestError(`Name cannot be empty.`);
   }
-  const country = await Country.findOneAndRemove({ name: name }, req.body, {
-    new: true,
-    runValidators: true,
-  });
+
+  const client = await connectDB();
+  const country = await client.findOneAndDelete({ "name.common": name });
   if (!country) {
     throw new NotFoundError(`No country with name: ${name}`);
   }
