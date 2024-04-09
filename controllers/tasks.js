@@ -14,7 +14,7 @@ const getAllCountriesStatic = async (req, res) => {
       region: 1,
       population: 1,
       languages: 1,
-      flag: 1,
+      flags: 1,
     })
     .toArray();
   res
@@ -92,7 +92,7 @@ const getAllCountries = async (req, res) => {
     selectFields.population = 1;
     selectFields.region = 1;
     selectFields.languages = 1;
-    selectFields.flag = 1;
+    selectFields.flags = 1;
   }
   console.log(queryObject, sortFields);
   const page = Number(req.query.page) || 1;
